@@ -1,3 +1,4 @@
+<img src="Onion.png" width="150" alt="Onion">
 <h1> Welcome! </h1>
 
 <h3>This is my programming language "Onion".</h3>
