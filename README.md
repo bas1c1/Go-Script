@@ -28,4 +28,4 @@ Example of code:
 
 1. Open cmd.exe
 2. Go to your directory with Onion.exe (example: cd C:\Users\User\Desktop\Onion)
-3. Type: Onion file_name.file_type
+3. Write: (Example: Onion file_name.file_type)
