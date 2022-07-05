@@ -32,6 +32,8 @@ namespace OwnLang.ast.lib
             functions.Add("n", new ForN());
             functions.Add("not", new ForNot());
             functions.Add("cmd", new ForCmd());
+            functions.Add("get_keyf", new ForGetKeyF());
+            functions.Add("num_to_char", new ForIntToChar());
         }
 
         public void getModule(string name)
@@ -400,7 +402,28 @@ namespace OwnLang.ast.lib
         {
             if (args.Length != 0) throw new Exception("Zero args expected");
             char key = Console.ReadKey(true).KeyChar;
-            return new UserValue(key);
+            return new StringValue(key.ToString());
+        }
+    }
+
+    public class ForGetKeyF : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+        public Value execute(Value[] args)
+        {
+            if (args.Length != 0) throw new Exception("Zero args expected");
+            int key = Console.ReadKey(true).KeyChar;
+            return new NumberValue(key);
+        }
+    }
+
+    public class ForIntToChar : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+        public Value execute(Value[] args)
+        {
+            if (args.Length != 1) throw new Exception("One arg expected");
+            return new StringValue(args[0].asString());
         }
     }
 
