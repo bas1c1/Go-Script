@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -80,13 +80,19 @@ namespace OwnLang.ast.lib
                         break;
                     }
 
-                case "ui":
+                case "np":
                     {
                         try
                         {
+                            functions.Add("dot", new ForNpDot());
+                            functions.Add("exp", new ForNpExp());
                         }
                         catch
                         {
+                            functions.Remove("dot");
+                            functions.Remove("exp");
+                            functions.Add("dot", new ForNpDot());
+                            functions.Add("exp", new ForNpExp());
                         }
                         break;
                     }
@@ -394,8 +400,7 @@ namespace OwnLang.ast.lib
         {
             if (args.Length != 0) throw new Exception("Zero args expected");
             char key = Console.ReadKey(true).KeyChar;
-            //Console.ReadKey();
-            return ZERO;
+            return new UserValue(key);
         }
     }
 
@@ -404,7 +409,6 @@ namespace OwnLang.ast.lib
         private static NumberValue ZERO = new NumberValue(0);
         public Value execute(Value[] args)
         {
-            //Console.WriteLine(args.ToString());
             if (args.Length != 2) throw new Exception("Two args expected");
             Random random = new Random();
             NumberValue rand = new NumberValue(random.Next(int.Parse(args[0].ToString()), int.Parse(args[1].ToString())));
@@ -1122,6 +1126,49 @@ namespace OwnLang.ast.lib
             Process.Start("cmd.exe", "/C " + args[0].ToString());
 
             return ZERO;
+        }
+    }
+
+    public class ForNpDot : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+
+        public Value execute(Value[] args)
+        {
+            int n = args[0].asNumber();
+
+            double result = 0;
+
+            try
+            {
+                ArrayValue vector1 = (ArrayValue)Variables.get(args[1].ToString());
+                ArrayValue vector2 = (ArrayValue)Variables.get(args[2].ToString());
+                for (int i = 0; i < n; ++i)
+                    result += vector1.get_by_index(i).asNumber() * vector2.get_by_index(i).asNumber();
+                return new NumberValue(result);
+            }
+            catch
+            {
+                StackValue vector1 = (StackValue)Variables.get(args[1].ToString());
+                StackValue vector2 = (StackValue)Variables.get(args[2].ToString());
+                
+                for (int i = 0; i < n; ++i)
+                    result += vector1.get_by_index(i).asNumber() * vector2.get_by_index(i).asNumber();
+                return new NumberValue(result);
+            }
+
+
+            //return new NumberValue(result);
+        }
+    }
+
+    public class ForNpExp : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+
+        public Value execute(Value[] args)
+        {
+            return new NumberValue(Math.Exp(args[0].asDouble()));
         }
     }
 }
