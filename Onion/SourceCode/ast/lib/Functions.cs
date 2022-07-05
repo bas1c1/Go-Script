@@ -423,7 +423,7 @@ namespace OwnLang.ast.lib
         public Value execute(Value[] args)
         {
             if (args.Length != 1) throw new Exception("One arg expected");
-            return new StringValue(args[0].asString());
+            return new StringValue(((char)args[0].asNumber()).ToString());
         }
     }
 
