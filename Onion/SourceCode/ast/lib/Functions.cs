@@ -1,3 +1,5 @@
+/* the html lib is useless */
+
 using System;
 using System.Collections.Generic;
 using System.IO;
