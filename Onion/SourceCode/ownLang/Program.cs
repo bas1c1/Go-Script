@@ -10,7 +10,6 @@ using System.Threading;
 using System.Collections;
 using System.Diagnostics;
 using System.Drawing;
-//using Microsoft.JScript;
 using System.CodeDom.Compiler;
 
 namespace OwnLang.ast
@@ -27,18 +26,6 @@ namespace OwnLang.ast
         {
             string input = File.ReadAllText(file);
             List<Token> tokens = new Lexer(input).tokenize();
-            //foreach (Token tok in tokens)
-            //{
-            //    Console.WriteLine(tok);
-            //}
-            Statement program = new Parser(tokens).parse();
-            program.execute();
-            Console.WriteLine();
-        }
-
-        public static void execute_onionos(string file)
-        {
-            List<Token> tokens = new Lexer(file).tokenize();
             Statement program = new Parser(tokens).parse();
             program.execute();
             Console.WriteLine();
