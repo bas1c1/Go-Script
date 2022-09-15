@@ -1,5 +1,5 @@
 <img src="Onion.png" width="150" alt="Onion">
-<h1> Welcome! </h1>
+<h1> Onion is abandoned, go to another named Lines repository </h1>
 
 <h3>This is my programming language "Onion".</h3>
 
