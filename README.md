@@ -4,7 +4,7 @@
 
 Onion is an interpreted high-level general-purpose programming language. Its design philosophy emphasizes code readability with its use of significant indentation. This language is very comfortable.
 
-JsMath.dll - for eval() func
+JsEval.dll - for eval() func
 
 Server.dll - for "net" library
 
