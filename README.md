@@ -6,8 +6,6 @@ Onion is an interpreted high-level general-purpose programming language. Its des
 
 JsEval.dll - for eval() func
 
-Server.dll - for "net" library
-
 Example of code:
 
 <h3>
