@@ -9,19 +9,6 @@
 
 Onion is an interpreted high-level general-purpose programming language. Its design philosophy emphasizes code readability with its use of significant indentation. This language is very comfortable.
 
-JsEval.dll - for eval() func
-
-Example of code:
-
-  ```
-  use "std"
-  
-  print("Onion is the best!")
-  
-  stop()
-  
-  //Output: Onion is the best!
-  ```
 <h1 align="center"> How to use Interpreter? </h1>
   
 ! This language is only for Windows. !
@@ -30,7 +17,59 @@ Example of code:
 2. Go to your directory with Onion.exe (example: cd C:\Users\User\Desktop\Onion)
 3. Write: (Example: Onion file_name.file_type)
 
-<h1 align="center"> Example </h1>
+<h1 align="center"> Examples </h1>
+
+Print function:
+
+```
+use "std"
+
+print("Onion is the best!")
+
+stop()
+
+//Output: Onion is the best!
+```
+
+Calculator:
+
+```
+use "std"
+
+fnum = to_int(input("Enter first number: "))
+snum = to_int(input("Enter second number: "))
+op = input("Enter operation (+, -, /, *): ")
+var result
+
+if (op == "+") {
+	result = fnum + snum
+}
+
+if (op == "-") {
+	result = fnum - snum
+}
+
+if (op == "*") {
+	result = fnum * snum
+}
+
+if (op == "/") {
+	result = fnum / snum
+}
+
+if (op != "+" && op != "-" && op != "*" && op != "/") {
+	throw_new_exception("Invalid operation!")
+}
+
+print(result)
+stop()
+```
+
+One line calculator:
+
+```
+use "std" print(eval(input("Enter expression: "))) stop()
+```
 
 Simple console game:
 
