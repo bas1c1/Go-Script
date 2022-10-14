@@ -9,6 +9,11 @@
 
 Onion is an interpreted high-level general-purpose programming language. Its design philosophy emphasizes code readability with its use of significant indentation. This language is very comfortable.
 
+
+<h1 align="center"> In the last update </h1>
+
+In the latest update, was added the ability to connect DLLs written in Visual C#
+
 <h1 align="center"> How to use Interpreter? </h1>
   
 ! This language is only for Windows. !
