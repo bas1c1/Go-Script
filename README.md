@@ -14,6 +14,8 @@ Onion is an interpreted high-level general-purpose programming language. Its des
 
 In the latest update, was added the ability to connect DLLs written in Visual C#
 
+<a href="https://github.com/bas1c1/OnionProgrammingLanguage/wiki" align="center"> Documentation </a>
+
 <h1 align="center"> How to use Interpreter? </h1>
   
 ! This language is only for Windows. !
