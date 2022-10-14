@@ -78,6 +78,8 @@ use "std"
 use "random"
 use "cs"
 
+clear()
+
 player = "*"
 yabloko = "@"
 
