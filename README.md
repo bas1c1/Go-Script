@@ -76,7 +76,7 @@ Simple console game:
 ```
 use "std"
 use "random"
-use "cs"
+use "winapi"
 
 clear()
 
