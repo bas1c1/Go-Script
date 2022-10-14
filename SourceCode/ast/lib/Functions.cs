@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -14,6 +14,7 @@ using System.Net.Http;
 using System.Windows.Forms;
 using Microsoft.JScript;
 using Microsoft.Win32;
+using System.Reflection;
 
 namespace OwnLang.ast.lib
 {
@@ -115,7 +116,7 @@ namespace OwnLang.ast.lib
                         }
                         break;
                     }
-                case "cs":
+                case "winapi":
                     {
                         try
                         {
@@ -204,16 +205,23 @@ namespace OwnLang.ast.lib
                         }
                         break;
                     }
-                case "winapi":
+                case "cs":
                     {
                         try
                         {
-
+                            functions.Add("exec_cs_method", new ExecuteCsMethod());
+                            functions.Add("get_cs_class_inst", new GetCsClassInstance());
+                            functions.Add("import_cs_class", new ImportCsClass());
                         }
 
                         catch
                         {
-
+                            functions.Remove("exec_cs_method");
+                            functions.Remove("get_cs_class_inst");
+                            functions.Remove("import_cs_class");
+                            functions.Add("exec_cs_method", new ExecuteCsMethod());
+                            functions.Add("get_cs_class_inst", new GetCsClassInstance());
+                            functions.Add("import_cs_class", new ImportCsClass());
                         }
                         break;
                     }
@@ -328,6 +336,68 @@ namespace OwnLang.ast.lib
                 functions.Remove(key);
                 functions.Add(key, function);
             }
+        }
+    }
+
+    public class ExecuteCsMethod : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+
+        public Value execute(Value[] args)
+        {
+            object t0 = ((ObjectValue)args[0]).asObject();
+            Type t = (Type)t0;
+            MethodInfo mi = t.GetMethod(args[2].asString());
+            StackValue stack = (StackValue)args[3];
+            List<object> values = new List<object>();
+            foreach (Value val in stack.getElements())
+            {
+                try
+                {
+                    StringValue str = (StringValue)val;
+                    values.Add(str.asString());
+                }
+                catch
+                {
+                    try
+                    {
+                        NumberValue str = (NumberValue)val;
+                        values.Add(str.asNumber());
+                    }
+                    catch
+                    {
+                        BoolValue str = (BoolValue)val;
+                        values.Add(str.asBool());
+                    }
+                }
+            }
+            return new ObjectValue(mi.Invoke( ((ObjectValue)args[1]).asObject(), values.ToArray() ));
+        }
+    }
+
+    public class GetCsClassInstance : Function 
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+
+        public Value execute(Value[] args)
+        {
+            Assembly a = Assembly.Load(args[0].asString());
+            object instance = a.CreateInstance(args[1].asString());
+
+            return new ObjectValue(instance);
+        }
+    }
+
+    public class ImportCsClass : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+        
+        public Value execute(Value[] args)
+        {
+            Assembly a = Assembly.Load(args[0].asString());
+            Type type = a.GetType(args[1].asString());
+            
+            return new ObjectValue(type);
         }
     }
 
