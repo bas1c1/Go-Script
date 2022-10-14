@@ -14,7 +14,7 @@ JsEval.dll - for eval() func
 Example of code:
 
 <h3>
-  
+  ```
   use "std"
   
   print("Onion is the best!")
@@ -22,6 +22,7 @@ Example of code:
   stop()
   
   //Output: Onion is the best!
+  ```
 </h3>
   
   <h1> How to use Interpreter? </h1>
