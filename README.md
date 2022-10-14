@@ -68,7 +68,7 @@ stop()
 One line calculator:
 
 ```
-use "std" print(eval(input("Enter expression: "))) stop()
+use "std" print(eval("string", input("Enter expression: "))) stop()
 ```
 
 Simple console game:
