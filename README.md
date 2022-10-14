@@ -13,7 +13,6 @@ JsEval.dll - for eval() func
 
 Example of code:
 
-<h3>
   ```
   use "std"
   
@@ -23,9 +22,7 @@ Example of code:
   
   //Output: Onion is the best!
   ```
-</h3>
-  
-  <h1> How to use Interpreter? </h1>
+<h1 align="center"> How to use Interpreter? </h1>
   
 ! This language is only for Windows. !
 
