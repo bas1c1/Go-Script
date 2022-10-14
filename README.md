@@ -4,7 +4,7 @@
     <img src="Onion.png" width="150" alt="Onion">
 </p>
 
-<h1>This is my programming language "Onion"</h1>
+<h1>This is programming language named "Onion"</h1>
 </div>
 
 Onion is an interpreted high-level general-purpose programming language. Its design philosophy emphasizes code readability with its use of significant indentation. This language is very comfortable.
