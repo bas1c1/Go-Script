@@ -14,15 +14,10 @@ Onion is an interpreted high-level general-purpose programming language. Its des
 
 In the latest update, was added the ability to connect DLLs written in Visual C#
 
-<a href="https://github.com/bas1c1/OnionProgrammingLanguage/wiki" align="center"> Documentation </a>
-
-<h1 align="center"> How to use Interpreter? </h1>
-  
-! This language is only for Windows. !
-
-1. Open cmd.exe
-2. Go to your directory with Onion.exe (example: cd C:\Users\User\Desktop\Onion)
-3. Write: (Example: Onion file_name.file_type)
+<div align="center">
+    <h1 align="center"> Documentation </h1>
+    <a href="https://github.com/bas1c1/OnionProgrammingLanguage/wiki"> Documentation </a> 
+</div>
 
 <h1 align="center"> Examples </h1>
 
