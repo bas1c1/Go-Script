@@ -21,16 +21,16 @@ In the latest update, was added the ability to connect DLLs written in Visual C#
 
 <h1 align="center"> Examples </h1>
 
-Print function:
+"Hello world":
 
 ```
 use "std"
 
-print("Onion is the best!")
+print("Hello, world!")
 
 stop()
 
-//Output: Onion is the best!
+//Output: Hello, world!
 ```
 
 Calculator:
