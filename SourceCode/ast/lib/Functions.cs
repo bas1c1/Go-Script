@@ -546,19 +546,6 @@ namespace OwnLang.ast.lib
         }
     }
 
-    public class ForArrayAppend : Function
-    {
-        private static NumberValue ZERO = new NumberValue(0);
-        public Value execute(Value[] args)
-        {
-            StringBuilder str = new StringBuilder();
-            Value var = Variables.get(args[0].ToString());
-            ArrayValue array = (ArrayValue)var;
-            Variables.set(args[0].ToString(), new ArrayValue(array.append(args[1])));
-            return ZERO;
-        }
-    }
-
     public class ForSplitGet : Function
     {
         private static NumberValue ZERO = new NumberValue(0);
