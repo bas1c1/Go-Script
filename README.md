@@ -12,7 +12,7 @@ Onion is an interpreted high-level general-purpose programming language. Its des
 
 <h1 align="center"> In the last update </h1>
 
-In the latest update, was added the ability to connect DLLs written in Visual C#
+In the latest update, was added the ability to connect DLLs written in Visual C# or JavaScript
 
 <div align="center">
     <h1 align="center"> Documentation </h1>
