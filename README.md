@@ -9,10 +9,16 @@
 
 Onion is an interpreted high-level general-purpose programming language. Its design philosophy emphasizes code readability with its use of significant indentation. This language is very comfortable.
 
+<h1 align="center"> Features </h1>
+
+ - Supports the ability to connect DLLs written in Visual C# or JavaScript
+ - Friendly and easy-to-read syntax
+ - Lightweight and fast interpreter
+ - <a href="https://github.com/bas1c1/OnionProgrammingLanguage/wiki/%D0%91%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0-%22net%22">"net"</a> and <a href="https://github.com/bas1c1/OnionProgrammingLanguage/wiki/%D0%91%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0-%22winapi%22">"winapi"</a> libraries
 
 <h1 align="center"> In the last update </h1>
 
-In the latest update, was added the ability to connect DLLs written in Visual C# or JavaScript
+In the latest update, was added enum statement
 
 <div align="center">
     <h1 align="center"> Documentation </h1>
