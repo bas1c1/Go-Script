@@ -11,6 +11,7 @@ Onion is an interpreted high-level general-purpose programming language. Its des
 
 <h1 align="center"> Features </h1>
 
+ - <a href="https://github.com/bas1c1/Knife"> Knife </a> http listening library
  - Supports the ability to connect DLLs written in Visual C# or JavaScript (<a href="https://github.com/bas1c1/OnionProgrammingLanguage/wiki/Библиотека-%22cs%22-(Работа-с-DLL-написанные-на-C%23-и-JavaScript)"> "cs" library </a>)
  - Friendly and easy-to-read syntax
  - Lightweight and fast interpreter
