@@ -7,7 +7,7 @@
 <h1>This is programming language named "Onion"</h1>
 </div>
 
-Onion is an interpreted high-level general-purpose programming language. Its design philosophy emphasizes code readability with its use of significant indentation. This language is very comfortable.
+Onion is a dynamic and fast programming language for creating versatile and fast applications! It is currently under active development, but it is already ready for use!
 
 <h1 align="center"> Features </h1>
 
