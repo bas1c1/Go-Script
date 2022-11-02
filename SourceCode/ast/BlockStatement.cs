@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +20,22 @@ namespace OwnLang.ast.lib
             statements.Add(statement);
         }
 
-        public void execute()
+        public async void execute()
         {
             foreach (Statement statement in statements)
             {
-                statement.execute();
+                if (statement is AsyncFunctionStatement)
+                {
+                    AsyncFunctionStatement fstatement = ((AsyncFunctionStatement)statement);
+
+
+                    var mytask = fstatement.async_execute();
+                    mytask.Wait();
+                }
+                else
+                {
+                    statement.execute();
+                }
             }
         }
 
