@@ -20,7 +20,7 @@ namespace OwnLang.ast.lib
             statements.Add(statement);
         }
 
-        public async void execute()
+        public void execute()
         {
             foreach (Statement statement in statements)
             {
