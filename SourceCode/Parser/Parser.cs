@@ -265,7 +265,16 @@ namespace OwnLang.ast
         private Statement tryStatement()
         {
             Statement statement_try = statementOrBlock();
-            return new TryStatement(statement_try);
+            Statement statement_catch;
+            if (match(TokenType.CATCH))
+            {
+                statement_catch = statementOrBlock();
+            } 
+            else
+            {
+                throw new Exception("Catch block wasn\'t found");    
+            }
+            return new TryCatchStatement(statement_try, statement_catch);
         }
 
         private Statement doWhileStatement()
