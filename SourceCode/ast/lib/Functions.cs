@@ -21,10 +21,12 @@ namespace OwnLang.ast.lib
     public class Functions
     {
         private static Dictionary<string, Function> functions;
+        //private static Dictionary<string, AsyncFunction> async_functions;
 
         static Functions()
         {
             functions = new Dictionary<string, Function>();
+            //async_functions = new Dictionary<string, AsyncFunction>();
             functions.Add("stop", new ForStop());
             functions.Add("import", new ForImport());
             functions.Add("to_import", new ForToImport());
@@ -225,6 +227,31 @@ namespace OwnLang.ast.lib
                         }
                         break;
                     }
+                case "threading":
+                    {
+                        try
+                        {
+                            functions.Add("create_thread", new CreateThread());
+                            functions.Add("start_thread", new StartThread());
+                            functions.Add("get_curr_thread", new GetCurrThread());
+                            functions.Add("abort_thread", new AbortThread());
+                            functions.Add("join_thread", new JoinThread());
+                        }
+                        catch
+                        {
+                            functions.Remove("create_thread");
+                            functions.Remove("start_thread");
+                            functions.Remove("get_curr_thread");
+                            functions.Remove("abort_thread");
+                            functions.Remove("join_thread");
+                            functions.Add("create_thread", new CreateThread());
+                            functions.Add("start_thread", new StartThread());
+                            functions.Add("get_curr_thread", new GetCurrThread());
+                            functions.Add("abort_thread", new AbortThread());
+                            functions.Add("join_thread", new JoinThread());
+                        }
+                        break;
+                    }
                 case "std":
                     {
                         try
@@ -336,6 +363,61 @@ namespace OwnLang.ast.lib
                 functions.Remove(key);
                 functions.Add(key, function);
             }
+        }
+    }
+
+    public class CreateThread : Function
+    {
+        public Value execute(Value[] args)
+        {
+            FunctionalExpression function = new FunctionalExpression(args[0].asString());
+            List<Value> argsth = ((StackValue)args[1]).get().ToList();
+            Thread thread = new Thread(new ThreadStart(function.void_eval));
+            return new ObjectValue(thread);
+        }
+    }
+
+    public class StartThread : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+
+        public Value execute(Value[] args)
+        {
+            Thread th = (Thread)(((ObjectValue)args[0]).asObject());
+            th.Start();
+            return ZERO;
+        }
+    }
+
+    public class AbortThread : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+
+        public Value execute(Value[] args)
+        {
+            Thread th = (Thread)(((ObjectValue)args[0]).asObject());
+            th.Abort();
+            return ZERO;
+        }
+    }
+
+    public class JoinThread : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+
+        public Value execute(Value[] args)
+        {
+            Thread th = (Thread)(((ObjectValue)args[0]).asObject());
+            th.Join();
+            return ZERO;
+        }
+    }
+
+    public class GetCurrThread : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(Thread.CurrentThread);
         }
     }
 
