@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +26,50 @@ namespace OwnLang.ast.lib
         public void addArgument(Expression arg)
         {
             arguments.Add(arg);
+        }
+
+
+
+        public async Task async_eval()
+        {
+            int size = arguments.Count();
+            Value[] values = new Value[size];
+            for (int i = 0; i < size; i++)
+            {
+                values[i] = arguments[i].eval();
+            }
+
+            Function function = Functions.get(name);
+            var mytask = Task.Run(() => function.execute(values));
+            mytask.Wait();
+        }
+
+        public void void_eval()
+        {
+            int size = arguments.Count();
+            Value[] values = new Value[size];
+            for (int i = 0; i < size; i++)
+            {
+                values[i] = arguments[i].eval();
+            }
+
+            Function function = Functions.get(name);
+            if (function is UserDefineFunction)
+            {
+                UserDefineFunction userFunction = (UserDefineFunction)function;
+                if (size != userFunction.getArgsCount()) throw new Exception("Args count missmatch");
+
+                Variables.push();
+
+                for (int i = 0; i < size; i++)
+                {
+                    Variables.set(userFunction.getArgsName(i), values[i]);
+                }
+
+                Value result = userFunction.execute(values);
+                Variables.pop();
+            }
+            function.execute(values);
         }
 
         public Value eval()
