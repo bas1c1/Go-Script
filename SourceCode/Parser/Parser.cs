@@ -1,4 +1,4 @@
-﻿using OwnLang.ast.lib;
+using OwnLang.ast.lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,7 +101,15 @@ namespace OwnLang.ast
             {
                 return classDefine();
             }
-            if (get(0).getType() == TokenType.WORD && get(1).getType() == TokenType.LPAREN)
+            if(match(TokenType.ENUM))
+            {
+                return enums();
+            }
+            if (get(0).getType() == TokenType.AWAIT && get(1).getType() == TokenType.WORD && get(2).getType() == TokenType.LPAREN)
+            {
+                return new AsyncFunctionStatement(async_function());
+            }
+            else if (get(0).getType() == TokenType.WORD && get(1).getType() == TokenType.LPAREN)
             {
                 return new FunctionStatement(function());
             }
@@ -138,6 +146,22 @@ namespace OwnLang.ast
             }
             Statement body = statementOrBlock();
             return new FunctionDefine(name, argNames, body);
+        }
+
+        private Statement enums()
+        {
+            string name = consume(TokenType.WORD).getText();
+            Dictionary<string, StringValue> enums = new Dictionary<string, StringValue>();
+
+            consume(TokenType.LBRACE);
+            while(!(match(TokenType.RBRACE)))
+            {
+                string en = consume(TokenType.WORD).getText();
+                match(TokenType.COMMA);
+                enums.Add(en, new StringValue(en));
+            }
+            Variables.set(name, new EnumValue(enums));
+            return new AssignmentStatement(name, new ValueExpression(new EnumValue(enums)));
         }
 
         private Statement assignmentStatement()
@@ -512,6 +536,10 @@ namespace OwnLang.ast
             {
                 return new ValueExpression(false);
             }
+            if(lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.DDOT))
+            {
+                return ddot();
+            }
             if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LPAREN))
             {
                 return function();
@@ -560,8 +588,31 @@ namespace OwnLang.ast
             }
         }
 
+        private DdotExpression ddot()
+        {
+            string name = consume(TokenType.WORD).getText();
+            consume(TokenType.DDOT);
+            StringValue value = new StringValue(consume(TokenType.WORD).getText());
+            DdotExpression ddot = new DdotExpression((EnumValue)Variables.get(name), value);
+            return ddot;
+        }
+
         private FunctionalExpression function()
         {
+            string name = consume(TokenType.WORD).getText();
+            consume(TokenType.LPAREN);
+            FunctionalExpression function = new FunctionalExpression(name);
+            while (!match(TokenType.RPAREN))
+            {
+                function.addArgument(expression());
+                match(TokenType.COMMA);
+            }
+            return function;
+        }
+
+        private FunctionalExpression async_function()
+        {
+            consume(TokenType.AWAIT);
             string name = consume(TokenType.WORD).getText();
             consume(TokenType.LPAREN);
             FunctionalExpression function = new FunctionalExpression(name);
