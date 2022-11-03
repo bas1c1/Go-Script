@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +17,7 @@ namespace OwnLang
         ARRAY,
         DICT,
         STACK,
+        OBJECT,
 
         PRINT,
         IF,
@@ -34,12 +35,20 @@ namespace OwnLang
         RUN_CLASS,
         RETURN,
         USE,
+        ENUM,
+        ASYNC,
+        AWAIT,
+        CATCH,
+        LAMBDA,
+        STATEMENT,
 
         STAREQ,
         SLASHEQ,
         PLUSEQ,
         MINUSEQ,
 
+        DOT,
+        DDOT,
         STAR,
         SLASH,
         PLUS,
