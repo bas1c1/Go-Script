@@ -19,7 +19,7 @@ Onion is a dynamically typed and fast general purpose programming language for c
 
 <h1 align="center"> In the last update </h1>
 
-In the latest update was added "threading" lib, operator "await" and try-catch statement
+In the latest update was added "ast" lib, "exec_st" standart function and lambda's
 
 `~5000` lines of code
 
