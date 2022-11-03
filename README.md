@@ -25,8 +25,11 @@ In the latest update was added "threading" lib, operator "await" and try-catch s
 
 <div align="center">
     <h1 align="center"> Documentation </h1>
-    <a href="https://github.com/bas1c1/OnionProgrammingLanguage/wiki"> Documentation </a> 
+    <a href="https://github.com/bas1c1/OnionProgrammingLanguage/wiki"> Documentation </a>
 </div>
+
+<h1 align="center"> Contribution </h1>
+Onion is open-source project. You can throw pull requests and I'll look through them all!
 
 <h1 align="center"> Examples </h1>
 
