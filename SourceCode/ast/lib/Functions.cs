@@ -427,7 +427,8 @@ namespace OwnLang.ast.lib
         private static NumberValue ZERO = new NumberValue(0);
         public Value execute(Value[] args)
         {
-            ((BlockStatement)args[0]).execute();
+            BlockStatement st = (BlockStatement)((ObjectValue)args[0]).asObject();
+            st.execute();
             return ZERO;
         }
     }
@@ -439,7 +440,8 @@ namespace OwnLang.ast.lib
         {
             try
             {
-                ((Statement)args[0]).execute();
+                Statement st = (Statement)((ObjectValue)args[0]).asObject();
+                st.execute();
                 return ZERO;
             }
             catch
@@ -454,7 +456,8 @@ namespace OwnLang.ast.lib
     {
         public Value execute(Value[] args)
         {
-            return new ObjectValue(((Expression)args[0]).eval());
+            Expression expr = (Expression)((ObjectValue)args[0]).asObject();
+            return new ObjectValue(expr.eval());
         }
     }
 
@@ -531,7 +534,7 @@ namespace OwnLang.ast.lib
     {
         public Value execute(Value[] args)
         {
-            return new ObjectValue(new SuffixExpression(args[0].asChar(), (ValueExpression)args[1]));
+            return new ObjectValue(new SuffixExpression(args[0].asChar(), new ValueExpression(args[1])));
         }
     }
 
@@ -539,7 +542,7 @@ namespace OwnLang.ast.lib
     {
         public Value execute(Value[] args)
         {
-            return new ObjectValue(new UnaryExpression(args[0].asChar(), (ValueExpression)args[1]));
+            return new ObjectValue(new UnaryExpression(args[0].asChar(), new ValueExpression(args[1])));
         }
     }
 
@@ -547,7 +550,7 @@ namespace OwnLang.ast.lib
     {
         public Value execute(Value[] args)
         {
-            return new ObjectValue(new BinaryExpression(args[0].asChar(), (ValueExpression)args[1], (ValueExpression)args[2]));
+            return new ObjectValue(new BinaryExpression(args[0].asChar(), new ValueExpression(args[1]), new ValueExpression(args[2])));
         }
     }
 
