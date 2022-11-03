@@ -160,7 +160,6 @@ namespace OwnLang
             }
             next();
 
-            //string toString = buffer.ToString();
             addToken(TokenType.TEXT, buffer.ToString());
         }
 
@@ -180,6 +179,21 @@ namespace OwnLang
             string word = buffer.ToString();
             switch (word)
             {
+                case "statement":
+                    {
+                        addToken(TokenType.STATEMENT);
+                        break;
+                    }
+                case "lambda":
+                    {
+                        addToken(TokenType.LAMBDA);
+                        break;
+                    }
+                case "catch":
+                    {
+                        addToken(TokenType.CATCH);
+                        break;
+                    }
                 case "await":
                     {
                         addToken(TokenType.AWAIT);
