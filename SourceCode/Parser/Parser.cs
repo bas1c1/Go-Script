@@ -73,6 +73,10 @@ namespace OwnLang.ast
             {
                 return doWhileStatement();
             }
+            if (match(TokenType.STATEMENT))
+            {
+                return new StatementStatement(statementOrBlock());
+            }
             if (match(TokenType.BREAK))
             {
                 return new BreakStatement();
@@ -269,10 +273,10 @@ namespace OwnLang.ast
             if (match(TokenType.CATCH))
             {
                 statement_catch = statementOrBlock();
-            } 
+            }
             else
             {
-                throw new Exception("Catch block wasn\'t found");    
+                throw new Exception("Catch block wasn\'t found");
             }
             return new TryCatchStatement(statement_try, statement_catch);
         }
@@ -549,6 +553,10 @@ namespace OwnLang.ast
             {
                 return ddot();
             }
+            if (lookMatch(0, TokenType.LAMBDA))
+            {
+                return lambda();
+            }
             if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LPAREN))
             {
                 return function();
@@ -595,6 +603,13 @@ namespace OwnLang.ast
                 consume(TokenType.RBRACE);
                 return new StackAccesExpression(variable, index);
             }
+        }
+
+        private LambdaExpression lambda()
+        {
+            consume(TokenType.LAMBDA);
+            LambdaExpression lambda = new LambdaExpression(statement());
+            return lambda;
         }
 
         private DdotExpression ddot()
