@@ -21,12 +21,10 @@ namespace OwnLang.ast.lib
     public class Functions
     {
         private static Dictionary<string, Function> functions;
-        //private static Dictionary<string, AsyncFunction> async_functions;
 
         static Functions()
         {
             functions = new Dictionary<string, Function>();
-            //async_functions = new Dictionary<string, AsyncFunction>();
             functions.Add("stop", new ForStop());
             functions.Add("import", new ForImport());
             functions.Add("to_import", new ForToImport());
@@ -38,6 +36,7 @@ namespace OwnLang.ast.lib
             functions.Add("cmd", new ForCmd());
             functions.Add("get_keyf", new ForGetKeyF());
             functions.Add("num_to_char", new ForIntToChar());
+            functions.Add("exec_st", new AstStatementExec());
         }
 
         public void getModule(string name)
@@ -227,6 +226,62 @@ namespace OwnLang.ast.lib
                         }
                         break;
                     }
+                case "ast":
+                    {
+                        try
+                        {
+                            functions.Add("ast_statement_exec", new AstStatementExec());
+                            functions.Add("ast_block_exec", new AstBlockExec());
+                            functions.Add("ast_expr_eval", new AstExprEval());
+                            functions.Add("ast_binary_op", new AstBinaryOp());
+                            functions.Add("ast_unart_op", new AstUnaryOp());
+                            functions.Add("ast_suffix_op", new AstSuffixOp());
+                            functions.Add("ast_value_expr", new AstValueExpr());
+                            functions.Add("ast_stack_op", new AstStackOp());
+                            functions.Add("ast_funct_op", new AstFunctOp());
+                            functions.Add("ast_eq_op", new AstEqOp());
+                            functions.Add("ast_dict_op", new AstDictOp());
+                            functions.Add("ast_ddot_op", new AstDdotOp());
+                            functions.Add("ast_const_op", new AstConstOp());
+                            functions.Add("ast_class_op", new AstClassOp());
+                            functions.Add("ast_array_op", new AstArrayOp());
+                        }
+                        catch
+                        {
+                            functions.Remove("ast_statement_exec");
+                            functions.Remove("ast_block_exec");
+                            functions.Remove("ast_expr_eval");
+                            functions.Remove("ast_binary_op");
+                            functions.Remove("ast_unart_op");
+                            functions.Remove("ast_suffix_op");
+                            functions.Remove("ast_value_expr");
+                            functions.Remove("ast_stack_op");
+                            functions.Remove("ast_funct_op");
+                            functions.Remove("ast_eq_op");
+                            functions.Remove("ast_dict_op");
+                            functions.Remove("ast_ddot_op");
+                            functions.Remove("ast_const_op");
+                            functions.Remove("ast_class_op");
+                            functions.Remove("ast_array_op");
+
+                            functions.Add("ast_statement_exec", new AstStatementExec());
+                            functions.Add("ast_block_exec", new AstBlockExec());
+                            functions.Add("ast_expr_eval", new AstExprEval());
+                            functions.Add("ast_binary_op", new AstBinaryOp());
+                            functions.Add("ast_unart_op", new AstUnaryOp());
+                            functions.Add("ast_suffix_op", new AstSuffixOp());
+                            functions.Add("ast_value_expr", new AstValueExpr());
+                            functions.Add("ast_stack_op", new AstStackOp());
+                            functions.Add("ast_funct_op", new AstFunctOp());
+                            functions.Add("ast_eq_op", new AstEqOp());
+                            functions.Add("ast_dict_op", new AstDictOp());
+                            functions.Add("ast_ddot_op", new AstDdotOp());
+                            functions.Add("ast_const_op", new AstConstOp());
+                            functions.Add("ast_class_op", new AstClassOp());
+                            functions.Add("ast_array_op", new AstArrayOp());
+                        }
+                        break;
+                    }
                 case "threading":
                     {
                         try
@@ -365,6 +420,147 @@ namespace OwnLang.ast.lib
             }
         }
     }
+
+
+    public class AstBlockExec : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+        public Value execute(Value[] args)
+        {
+            ((BlockStatement)args[0]).execute();
+            return ZERO;
+        }
+    }
+
+    public class AstStatementExec : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+        public Value execute(Value[] args)
+        {
+            try
+            {
+                ((Statement)args[0]).execute();
+                return ZERO;
+            }
+            catch
+            {
+                ((StatementValue)args[0]).asStatement().execute();
+                return ZERO;
+            }
+        }
+    }
+
+    public class AstExprEval : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(((Expression)args[0]).eval());
+        }
+    }
+
+    public class AstClassOp : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(new ClassExpression(args[0].asString()));
+        }
+    }
+
+    public class AstConstOp : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(new ConstantExpression(args[0].asString()));
+        }
+    }
+
+    public class AstDdotOp : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(new DdotExpression((EnumValue)args[0], (StringValue)args[1]));
+        }
+    }
+
+    public class AstArrayOp : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(new ArrayAccesExpression(args[0].asString(), new ValueExpression(args[1])));
+        }
+    }
+
+    public class AstDictOp : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(new DictionaryAccesExpression(args[0].asString(), new ValueExpression(args[1])));
+        }
+    }
+
+    public class AstEqOp : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(new ForEqExpression(args[0].asChar(), new ValueExpression(args[1]), new ValueExpression(args[2])));
+        }
+    }
+
+    public class AstStackOp : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(new StackAccesExpression(args[0].asString(), new ValueExpression(args[1])));
+        }
+    }
+
+    public class AstFunctOp : Function
+    {
+        public Value execute(Value[] args)
+        {
+            List<Expression> fargs = new List<Expression>();
+            foreach(Value val in (ArrayValue)args[1])
+            {
+                fargs.Add(new ValueExpression(val));
+            }
+            return new ObjectValue(new FunctionalExpression(args[0].asString(), fargs));
+        }
+    }
+
+    public class AstSuffixOp : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(new SuffixExpression(args[0].asChar(), (ValueExpression)args[1]));
+        }
+    }
+
+    public class AstUnaryOp : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(new UnaryExpression(args[0].asChar(), (ValueExpression)args[1]));
+        }
+    }
+
+    public class AstBinaryOp : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(new BinaryExpression(args[0].asChar(), (ValueExpression)args[1], (ValueExpression)args[2]));
+        }
+    }
+
+    public class AstValueExpr : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(new ValueExpression(args[0]));
+        }
+    }
+
+
+
 
     public class CreateThread : Function
     {
