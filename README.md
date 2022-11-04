@@ -21,7 +21,7 @@ Onion is a dynamically typed and fast general purpose programming language for c
 
 In the latest update was added "exec_st" standart function, "lambda" expression and "statement" statement
 
-`~5000` lines of code
+`~5500` lines of code
 
 <div align="center">
     <h1 align="center"> Documentation </h1>
