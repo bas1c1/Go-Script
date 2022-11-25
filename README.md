@@ -14,7 +14,7 @@ Onion is a dynamically typed and fast general purpose programming language for c
  - <a href="https://github.com/bas1c1/Knife"> Knife </a> http listening library
  - Supports the ability to connect DLLs written in Visual C# or JavaScript (<a href="https://github.com/bas1c1/OnionProgrammingLanguage/wiki/Библиотека-%22cs%22-(Работа-с-DLL-написанные-на-C%23-и-JavaScript)"> "cs" library </a>)
  - Friendly and easy-to-read syntax
- - Lightweight and fast interpreter
+ - Lightweight interpreter
  - Standart libraries
 
 <h1 align="center"> In the last update </h1>
