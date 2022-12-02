@@ -1,4 +1,5 @@
 using System;
+using Gtk;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -117,6 +118,34 @@ namespace OwnLang.ast.lib
                         }
                         break;
                     }
+                case "gtk":
+                    {
+                        try
+                        {
+                            functions.Add("gtk_init", new GtkInit());
+                            functions.Add("gtk_window", new GtkWindow());
+                            functions.Add("gtk_run", new GtkAppRun());
+                            functions.Add("gtk_button", new GtkButton());
+                            functions.Add("gtk_label", new GtkLabel());
+                            functions.Add("gtk_example", new GtkExample());
+                        }
+                        catch
+                        {
+                            functions.Remove("gtk_init");
+                            functions.Remove("gtk_window");
+                            functions.Remove("gtk_run");
+                            functions.Remove("gtk_button");
+                            functions.Remove("gtk_label");
+                            functions.Remove("gtk_example");
+                            functions.Add("gtk_init", new GtkInit());
+                            functions.Add("gtk_window", new GtkWindow());
+                            functions.Add("gtk_run", new GtkAppRun());
+                            functions.Add("gtk_button", new GtkButton());
+                            functions.Add("gtk_label", new GtkLabel());
+                            functions.Add("gtk_example", new GtkExample());
+                        }
+                        break;
+                    }
                 case "winapi":
                     {
                         try
@@ -213,6 +242,7 @@ namespace OwnLang.ast.lib
                             functions.Add("exec_cs_method", new ExecuteCsMethod());
                             functions.Add("get_cs_class_inst", new GetCsClassInstance());
                             functions.Add("import_cs_class", new ImportCsClass());
+                            functions.Add("ez_exec_cs_method", new EasyExecuteCsMethod());
                         }
 
                         catch
@@ -220,9 +250,11 @@ namespace OwnLang.ast.lib
                             functions.Remove("exec_cs_method");
                             functions.Remove("get_cs_class_inst");
                             functions.Remove("import_cs_class");
+                            functions.Remove("ez_exec_cs_method");
                             functions.Add("exec_cs_method", new ExecuteCsMethod());
                             functions.Add("get_cs_class_inst", new GetCsClassInstance());
                             functions.Add("import_cs_class", new ImportCsClass());
+                            functions.Add("ez_exec_cs_method", new EasyExecuteCsMethod());
                         }
                         break;
                     }
@@ -403,7 +435,7 @@ namespace OwnLang.ast.lib
 
         public static Function get(string key)
         {
-            if (!isExists(key)) throw new Exception("Unknown function " + key);
+            if (!isExists(key)) throw new System.Exception("Unknown function " + key);
             return functions[key];
         }
 
@@ -421,6 +453,75 @@ namespace OwnLang.ast.lib
         }
     }
 
+    public class GtkInit : Function
+    {
+        public Value execute(Value[] args)
+        {
+            Gtk.Application.Init();
+            return new NumberValue(0);
+        }
+    }
+
+    public class GtkAppRun : Function
+    {
+        public Value execute(Value[] args)
+        {
+            Gtk.Application.Run();
+            return new NumberValue(0);
+        }
+    }
+
+    public class GtkLabel : Function
+    {
+        public Value execute(Value[] args)
+        {
+            Gtk.Label label = new Gtk.Label();
+            label.Text = args[0].ToString();
+            Gtk.Window window = (Gtk.Window)((ObjectValue)args[1]).asObject();
+            window.Add(label);
+            window.ShowAll();
+            return new ObjectValue(label);
+        }
+    }
+
+    public class GtkButton : Function
+    {
+        public Value execute(Value[] args)
+        {
+            Gtk.Button label = new Gtk.Button();
+            label.Label = args[0].ToString();
+            Gtk.Window window = (Gtk.Window)((ObjectValue)args[1]).asObject();
+            window.Add(label);
+            window.ShowAll();
+            return new ObjectValue(label);
+        }
+    }
+
+    public class GtkWindow : Function
+    {
+        public Value execute(Value[] args)
+        {
+            Window newWindow = new Window(args[0].asString());
+            newWindow.Resize(args[1].asNumber(), args[2].asNumber());
+            return new ObjectValue(newWindow);
+        }
+    }
+
+    public class GtkExample : Function
+    {
+        public Value execute(Value[] args)
+        {
+            Gtk.Application.Init();
+            Window myWin = new Window("My first GTK-O Application! ");
+            myWin.Resize(200, 200);
+            Gtk.Label myLabel = new Gtk.Label();
+            myLabel.Text = "Hello World!!!!";
+            myWin.Add(myLabel);
+            myWin.ShowAll();
+            Gtk.Application.Run();
+            return new NumberValue(0);
+        }
+    }
 
     public class AstBlockExec : Function
     {
@@ -620,6 +721,43 @@ namespace OwnLang.ast.lib
         }
     }
 
+    public class EasyExecuteCsMethod : Function
+    {
+        private static NumberValue ZERO = new NumberValue(0);
+
+        public Value execute(Value[] args)
+        {
+            Assembly a = Assembly.Load(args[0].asString());
+            object instance = a.CreateInstance(args[1].asString());
+            Type type = a.GetType(args[1].ToString());
+            MethodInfo mi = type.GetMethod(args[2].asString());
+            StackValue stack = (StackValue)args[3];
+            List<object> values = new List<object>();
+            foreach (Value val in stack.getElements())
+            {
+                try
+                {
+                    StringValue str = (StringValue)val;
+                    values.Add(str.asString());
+                }
+                catch
+                {
+                    try
+                    {
+                        NumberValue str = (NumberValue)val;
+                        values.Add(str.asNumber());
+                    }
+                    catch
+                    {
+                        BoolValue str = (BoolValue)val;
+                        values.Add(str.asBool());
+                    }
+                }
+            }
+            return new ObjectValue(mi.Invoke(((ObjectValue)args[1]).asObject(), values.ToArray()));
+        }
+    }
+
     public class ExecuteCsMethod : Function
     {
         private static NumberValue ZERO = new NumberValue(0);
@@ -686,7 +824,7 @@ namespace OwnLang.ast.lib
     {
         public Value execute(Value[] args)
         {
-            if (args.Length != 1) throw new Exception("One arg expected");
+            if (args.Length != 1) throw new System.Exception("One arg expected");
             return new NumberValue(Math.Sin(args[0].asNumber()));
         }
     }
