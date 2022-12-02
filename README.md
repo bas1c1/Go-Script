@@ -19,7 +19,7 @@ Onion is a dynamically typed and fast general purpose programming language for c
 
 <h1 align="center"> In the last update </h1>
 
-In the latest update was added "gtk" library, "ez_exec_cs_method" in "cs" library
+In the latest update was added "gtk" library(beta-version), "ez_exec_cs_method" in "cs" library
 
 `~5500` lines of code
 
