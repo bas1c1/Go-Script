@@ -5,9 +5,9 @@
 </p>
 
 <h1>This is programming language named "Onion"</h1>
-</div>
 
-Onion is a dynamically typed and fast general purpose programming language for creating versatile and fast applications! It is currently under active development, but it is already ready for use!
+Onion is a dynamically typed, general purpose programming language for creating universal applications!
+</div>
 
 <h1 align="center"> Features </h1>
 
