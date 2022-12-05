@@ -89,6 +89,10 @@ namespace OwnLang.ast
             {
                 return new ReturnStatement(expression());
             }
+            if (match(TokenType.SWITCH))
+            {
+                return switchs();
+            }
             if (match(TokenType.USE))
             {
                 return new UseStatement(expression().ToString());
@@ -150,6 +154,22 @@ namespace OwnLang.ast
             }
             Statement body = statementOrBlock();
             return new FunctionDefine(name, argNames, body);
+        }
+
+        private Statement switchs()
+        {
+            Expression expr = expression();
+            List<CaseStatement> caseStatements = new List<CaseStatement>();
+            consume(TokenType.LBRACE);
+            
+            while (!(match(TokenType.RBRACE)))
+            {
+                consume(TokenType.CASE);
+                Expression curr = expression();
+                caseStatements.Add(new CaseStatement(curr, expr, block()));
+            }
+
+            return new SwitchStatement(caseStatements);
         }
 
         private Statement enums()
