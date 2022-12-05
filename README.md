@@ -19,7 +19,7 @@ Onion is a dynamically typed, general purpose programming language for creating 
 
 <h1 align="center"> In the last update </h1>
 
-In the latest update was added "gtk" library(beta-version), "ez_exec_cs_method" in "cs" library
+In the latest update was added "switch-case" statement
 
 `~5500` lines of code
 
