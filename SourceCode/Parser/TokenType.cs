@@ -41,6 +41,8 @@ namespace OwnLang
         CATCH,
         LAMBDA,
         STATEMENT,
+        SWITCH,
+        CASE,
 
         STAREQ,
         SLASHEQ,
