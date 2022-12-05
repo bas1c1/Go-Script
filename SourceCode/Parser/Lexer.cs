@@ -179,6 +179,16 @@ namespace OwnLang
             string word = buffer.ToString();
             switch (word)
             {
+                case "switch":
+                    {
+                        addToken(TokenType.SWITCH);
+                        break;
+                    }
+                case "case":
+                    {
+                        addToken(TokenType.CASE);
+                        break;
+                    }
                 case "statement":
                     {
                         addToken(TokenType.STATEMENT);
