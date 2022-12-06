@@ -8,7 +8,7 @@ namespace OwnLang
 {
     class Lexer
     {
-        private static string OPERATOR_CHARS = "+-*/()[]{}=<>!&|;.:";
+        private static string OPERATOR_CHARS = "+-*/()[]{}=<>!&|;.:@";
         private string input;
         private List<Token> tokens;
         private static Dictionary<string, TokenType> OPERATORS;
@@ -41,6 +41,7 @@ namespace OwnLang
             OPERATORS.Add(";", TokenType.COMMA);
             OPERATORS.Add(".", TokenType.DOT);
             OPERATORS.Add(":", TokenType.DDOT);
+            OPERATORS.Add("@", TokenType.DOG);
 
             OPERATORS.Add("!", TokenType.EXCL);
             OPERATORS.Add("&", TokenType.AMP);
