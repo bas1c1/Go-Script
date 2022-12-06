@@ -28,8 +28,6 @@ namespace OwnLang.ast.lib
             arguments.Add(arg);
         }
 
-
-
         public async Task async_eval()
         {
             int size = arguments.Count();
@@ -69,6 +67,21 @@ namespace OwnLang.ast.lib
                 Value result = userFunction.execute(values);
                 Variables.pop();
             }
+            if (function is Ldef)
+            {
+                Ldef userFunction = (Ldef)function;
+                if (size != userFunction.getArgsCount()) throw new Exception("Args count missmatch");
+
+                Variables.push();
+
+                for (int i = 0; i < size; i++)
+                {
+                    Variables.set(userFunction.getArgsName(i), values[i]);
+                }
+
+                Value result = userFunction.execute(values);
+                Variables.pop();
+            }
             function.execute(values);
         }
 
@@ -85,6 +98,22 @@ namespace OwnLang.ast.lib
             if (function is UserDefineFunction)
             {
                 UserDefineFunction userFunction = (UserDefineFunction)function;
+                if (size != userFunction.getArgsCount()) throw new Exception("Args count missmatch");
+
+                Variables.push();
+
+                for (int i = 0; i < size; i++)
+                {
+                    Variables.set(userFunction.getArgsName(i), values[i]);
+                }
+
+                Value result = userFunction.execute(values);
+                Variables.pop();
+                return result;
+            }
+            if (function is Ldef)
+            {
+                Ldef userFunction = (Ldef)function;
                 if (size != userFunction.getArgsCount()) throw new Exception("Args count missmatch");
 
                 Variables.push();
