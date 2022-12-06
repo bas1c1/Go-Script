@@ -569,6 +569,10 @@ namespace OwnLang.ast
             {
                 return new ValueExpression(false);
             }
+            if(lookMatch(0, TokenType.LDEF))
+            {
+                return ldef();
+            }
             if(lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.DDOT))
             {
                 return ddot();
@@ -639,6 +643,20 @@ namespace OwnLang.ast
             StringValue value = new StringValue(consume(TokenType.WORD).getText());
             DdotExpression ddot = new DdotExpression((EnumValue)Variables.get(name), value);
             return ddot;
+        }
+
+        private LdefExpression ldef()
+        {
+            consume(TokenType.LDEF);
+            consume(TokenType.LPAREN);
+            List<string> argNames = new List<string>();
+            while (!match(TokenType.RPAREN))
+            {
+                argNames.Add(consume(TokenType.WORD).getText());
+                match(TokenType.COMMA);
+            }
+            Statement body = statementOrBlock();
+            return new LdefExpression(body, argNames);
         }
 
         private FunctionalExpression function()
