@@ -19,7 +19,7 @@ Onion is a dynamically typed, general purpose programming language for creating 
 
 <h1 align="center"> In the last update </h1>
 
-In the latest update was added "switch-case" statement
+In the latest update was added "ldef" expression
 
 `~5500` lines of code
 
