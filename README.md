@@ -17,6 +17,7 @@ Onion is a dynamically typed, general purpose programming language for creating 
  - Friendly and easy-to-read syntax
  - Lightweight interpreter
  - Standart libraries
+ - <a href="https://github.com/bas1c1/onion2exe">Simple to .exe converter</a>
 
 <h1 align="center"> In the last update </h1>
 
