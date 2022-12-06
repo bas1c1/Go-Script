@@ -11,6 +11,7 @@ Onion is a dynamically typed, general purpose programming language for creating 
 
 <h1 align="center"> Features </h1>
 
+ - The possibility of functional programming
  - <a href="https://github.com/bas1c1/Knife"> Knife </a> http listening library
  - Supports the ability to connect DLLs written in Visual C# or JavaScript (<a href="https://github.com/bas1c1/OnionProgrammingLanguage/wiki/Библиотека-%22cs%22-(Работа-с-DLL-написанные-на-C%23-и-JavaScript)"> "cs" library </a>)
  - Friendly and easy-to-read syntax
