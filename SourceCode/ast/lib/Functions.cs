@@ -435,7 +435,15 @@ namespace OwnLang.ast.lib
 
         public static Function get(string key)
         {
+            if (Variables.isExists(key))
+            {
+                set(key, (Ldef)((ObjectValue)Variables.get(key)).asObject());
+                Function function = functions[key];
+                functions.Remove(key);
+                return function;
+            }
             if (!isExists(key)) throw new System.Exception("Unknown function " + key);
+            
             return functions[key];
         }
 
