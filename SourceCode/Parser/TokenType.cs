@@ -66,6 +66,7 @@ namespace OwnLang
         LTEQ,
         GTEQ,
         GT,
+        DOG,
 
         BAR,
         BARBAR,
