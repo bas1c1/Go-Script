@@ -31,6 +31,7 @@ namespace OwnLang
         BREAK,
         CONTINUE,
         DEF,
+        LDEF,
         CLASS,
         RUN_CLASS,
         RETURN,
