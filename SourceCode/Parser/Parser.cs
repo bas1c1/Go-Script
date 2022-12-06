@@ -593,6 +593,10 @@ namespace OwnLang.ast
             {
                 return element();
             }
+            if (lookMatch(0, TokenType.DOG))
+            {
+                return dog();
+            }
             if (match(TokenType.WORD))
             {
                 return new ConstantExpression(current.getText());
@@ -608,6 +612,15 @@ namespace OwnLang.ast
                 return result;
             }
             throw new Exception("unknown expression");
+        }
+
+        private DogExpression dog()
+        {
+            consume(TokenType.DOG);
+            consume(TokenType.LDEF);
+            List<string> argNames = new List<string>();
+            Statement body = statementOrBlock();
+            return new DogExpression(new LdefExpression(body, argNames));
         }
 
         private Expression element()
