@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,21 +8,26 @@ namespace OwnLang.ast.lib
 {
     public class EnumValue : Value
     {
-        private Dictionary<string, StringValue> enums = new Dictionary<string, StringValue>();
+        private Dictionary<string, Value> enums = new Dictionary<string, Value>();
 
-        public EnumValue(Dictionary<string, StringValue> enums)
+        public EnumValue(Dictionary<string, Value> enums)
         {
             this.enums = enums;
         }
 
-        public Dictionary<string, StringValue> getAll()
+        public Dictionary<string, Value> getAll()
         {
             return enums;
         }
 
-        public StringValue get(string enm)
+        public Value get(string enm)
         {
             return enums[enm];
+        }
+
+        public void set(string enm, Value value)
+        {
+            enums[enm] = value;
         }
 
         public char asChar()
