@@ -41,6 +41,7 @@ namespace OwnLang
             OPERATORS.Add(";", TokenType.COMMA);
             OPERATORS.Add(".", TokenType.DOT);
             OPERATORS.Add(":", TokenType.DDOT);
+            OPERATORS.Add(":=", TokenType.DDOTEQ);
             OPERATORS.Add("@", TokenType.DOG);
 
             OPERATORS.Add("!", TokenType.EXCL);
