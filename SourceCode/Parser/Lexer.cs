@@ -179,6 +179,11 @@ namespace OwnLang
             string word = buffer.ToString();
             switch (word)
             {
+                case "ldef":
+                    {
+                        addToken(TokenType.LDEF);
+                        break;
+                    }
                 case "switch":
                     {
                         addToken(TokenType.SWITCH);
