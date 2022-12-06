@@ -52,6 +52,7 @@ namespace OwnLang
 
         DOT,
         DDOT,
+        DDOTEQ,
         STAR,
         SLASH,
         PLUS,
