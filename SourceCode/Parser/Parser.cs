@@ -121,6 +121,10 @@ namespace OwnLang.ast
             {
                 return new FunctionStatement(function());
             }
+            else if (get(0).getType() == TokenType.WORD && get(1).getType() == TokenType.DDOT && get(2).getType() == TokenType.WORD && get(3).getType() == TokenType.LPAREN)
+            {
+                return new FunctionStatement(function());
+            }
             if (get(0).getType() == TokenType.RUN_CLASS && get(1).getType() == TokenType.WORD && get(2).getType() == TokenType.LPAREN)
             {
                 return new ClassStatement(classes());
@@ -175,7 +179,7 @@ namespace OwnLang.ast
         private Statement enums()
         {
             string name = consume(TokenType.WORD).getText();
-            Dictionary<string, StringValue> enums = new Dictionary<string, StringValue>();
+            Dictionary<string, Value> enums = new Dictionary<string, Value>();
 
             consume(TokenType.LBRACE);
             while(!(match(TokenType.RBRACE)))
@@ -196,6 +200,15 @@ namespace OwnLang.ast
                 string variable = consume(TokenType.WORD).getText();
                 consume(TokenType.EQ);
                 return new AssignmentStatement(variable, expression());
+            }
+
+            if (current.getType() == TokenType.WORD && get(1).getType() == TokenType.WORD && get(2).getType() == TokenType.DDOTEQ)
+            {
+                string enums = consume(TokenType.WORD).getText();
+                string variable = consume(TokenType.WORD).getText();
+                consume(TokenType.DDOTEQ);
+                DdotEqAssignmentStatement ddotEq = new DdotEqAssignmentStatement((EnumValue)Variables.get(enums), new StringValue(variable), expression().eval());
+                return ddotEq;
             }
 
             if (current.getType() == TokenType.WORD && get(1).getType() == TokenType.PLUSEQ)
@@ -581,6 +594,10 @@ namespace OwnLang.ast
             {
                 return lambda();
             }
+            if (get(0).getType() == TokenType.WORD && get(1).getType() == TokenType.DDOT && get(2).getType() == TokenType.WORD && get(3).getType() == TokenType.LPAREN)
+            {
+                return function();
+            }
             if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LPAREN))
             {
                 return function();
@@ -675,6 +692,20 @@ namespace OwnLang.ast
         private FunctionalExpression function()
         {
             string name = consume(TokenType.WORD).getText();
+            if (lookMatch(0, TokenType.DDOT))
+            {
+                consume(TokenType.DDOT);
+                string valname = consume(TokenType.WORD).getText();
+                consume(TokenType.LPAREN);
+                FunctionalExpression efunction = new FunctionalExpression(valname);
+                efunction.enumFunc = name;
+                while (!match(TokenType.RPAREN))
+                {
+                    efunction.addArgument(expression());
+                    match(TokenType.COMMA);
+                }
+                return efunction;
+            }
             consume(TokenType.LPAREN);
             FunctionalExpression function = new FunctionalExpression(name);
             while (!match(TokenType.RPAREN))
