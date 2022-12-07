@@ -34,6 +34,7 @@ namespace OwnLang
         LDEF,
         CLASS,
         RUN_CLASS,
+        INST_ENUM,
         RETURN,
         USE,
         ENUM,
