@@ -590,7 +590,7 @@ namespace OwnLang.ast.lib
     {
         public Value execute(Value[] args)
         {
-            return new ObjectValue(new DdotExpression((EnumValue)args[0], (StringValue)args[1]));
+            return new ObjectValue(new DdotExpression(args[0].asString(), (StringValue)args[1]));
         }
     }
 
