@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +8,19 @@ namespace OwnLang.ast.lib
 {
     public class DdotExpression : Expression
     {
+        private string valuet;
         private EnumValue value;
         private StringValue var;
 
-        public DdotExpression(EnumValue value, StringValue var)
+        public DdotExpression(string value, StringValue var)
         {
-            this.value = new EnumValue(value.getAll());
+            valuet = value;
             this.var = var;
         }
 
         public Value eval()
         {
+            value = new EnumValue(((EnumValue)Variables.get(valuet)).getAll());
             return value.get(var.asString());
         }
 
