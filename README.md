@@ -21,7 +21,7 @@ Onion is a dynamically typed, general purpose programming language for creating 
 
 <h1 align="center"> In the last update </h1>
 
-In the latest update was added ":=" operator
+In the latest update was added "inst" operator
 
 `~5500` lines of code
 
