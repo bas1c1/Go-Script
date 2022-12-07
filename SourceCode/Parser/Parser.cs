@@ -207,7 +207,7 @@ namespace OwnLang.ast
                 string enums = consume(TokenType.WORD).getText();
                 string variable = consume(TokenType.WORD).getText();
                 consume(TokenType.DDOTEQ);
-                DdotEqAssignmentStatement ddotEq = new DdotEqAssignmentStatement((EnumValue)Variables.get(enums), new StringValue(variable), expression().eval());
+                DdotEqAssignmentStatement ddotEq = new DdotEqAssignmentStatement(enums, new StringValue(variable), expression().eval());
                 return ddotEq;
             }
 
@@ -216,6 +216,26 @@ namespace OwnLang.ast
                 string variable = consume(TokenType.WORD).getText();
                 consume(TokenType.PLUSEQ);
                 return new NewAssignmentStatement(variable, expression(), "+");
+            }
+
+            if (current.getType() == TokenType.WORD && get(1).getType() == TokenType.INST_ENUM)
+            {
+                List<string> fdelete = new List<string>();
+                string enums = consume(TokenType.WORD).getText();
+                consume(TokenType.INST_ENUM);
+                consume(TokenType.LPAREN);
+                while (!match(TokenType.RPAREN))
+                {
+                    fdelete.Add(consume(TokenType.WORD).getText());
+                }
+                string enumf = consume(TokenType.WORD).getText();
+                Dictionary<string, Value> enumss = ((EnumValue)Variables.get(enums)).getAll();
+                foreach (string fd in fdelete)
+                {
+                    enumss[fd] = new StringValue(fd);
+                }
+                Variables.set(enumf, new EnumValue(enumss));
+                return new AssignmentStatement(enumf, new ValueExpression(new EnumValue(enumss)));
             }
 
             if (current.getType() == TokenType.WORD && get(1).getType() == TokenType.MINUSEQ)
@@ -671,7 +691,7 @@ namespace OwnLang.ast
             string name = consume(TokenType.WORD).getText();
             consume(TokenType.DDOT);
             StringValue value = new StringValue(consume(TokenType.WORD).getText());
-            DdotExpression ddot = new DdotExpression((EnumValue)Variables.get(name), value);
+            DdotExpression ddot = new DdotExpression(name, value);
             return ddot;
         }
 
