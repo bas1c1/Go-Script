@@ -10,6 +10,11 @@ namespace OwnLang.ast.lib
     {
         private Dictionary<string, Value> enums = new Dictionary<string, Value>();
 
+        public EnumValue(EnumValue enumValue)
+        {
+            this.enums = enumValue.getAll();
+        }
+
         public EnumValue(Dictionary<string, Value> enums)
         {
             this.enums = enums;
