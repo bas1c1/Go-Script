@@ -56,7 +56,6 @@ namespace OwnLang
         DDOTEQ,
         STAR,
         SLASH,
-        SLASHSLASH,
         BIN,
         XOR,
         LOGNOT,
