@@ -33,6 +33,9 @@ In the latest update was added "~", "^", "%", "&", "|", "**" operators
 <h1 align="center"> Contribution </h1>
 Onion is open-source project. You can throw pull requests and I'll look through them all!
 
+<h1 align="center"> DevKit </h1>
+<a href="https://github.com/bas1c1/Onion/releases/tag/DevKit"> DevKit </a>
+
 <h1 align="center"> Examples </h1>
 
 <a href="https://github.com/bas1c1/Onion/tree/main/examples">(More examples)</a>
