@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +23,10 @@ namespace OwnLang.ast.lib
             GTEQ,
 
             AND,
-            OR
+            OR,
+            LOGAND,
+            LOGOR,
+            XOR
         };
         private Expression expr1, expr2;
         private Operator operation;
@@ -88,6 +91,18 @@ namespace OwnLang.ast.lib
                 case Operator.OR:
                     {
                         result = (number1 != 0) || (number2 != 0); break;
+                    }
+                case Operator.LOGOR:
+                    {
+                        result = (number1 != 0) | (number2 != 0); break;
+                    }
+                case Operator.LOGAND:
+                    {
+                        result = (number1 != 0) & (number2 != 0); break;
+                    }
+                case Operator.XOR:
+                    {
+                        result = (number1 != 0) ^ (number2 != 0); break;
                     }
 
                 default:
