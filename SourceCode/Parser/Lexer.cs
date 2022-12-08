@@ -24,6 +24,9 @@ namespace OwnLang
             OPERATORS.Add("*=", TokenType.STAREQ);
             OPERATORS.Add("/=", TokenType.SLASHEQ);
 
+            OPERATORS.Add("%", TokenType.PERCENT);
+            OPERATORS.Add("**", TokenType.STARSTAR);
+
             OPERATORS.Add("+", TokenType.PLUS);
             OPERATORS.Add("-", TokenType.MINUS);
             OPERATORS.Add("*", TokenType.STAR);
@@ -47,6 +50,7 @@ namespace OwnLang
             OPERATORS.Add("!", TokenType.EXCL);
             OPERATORS.Add("&", TokenType.AMP);
             OPERATORS.Add("|", TokenType.BAR);
+            OPERATORS.Add("^", TokenType.XOR);
 
             OPERATORS.Add("==", TokenType.EQEQ);
             OPERATORS.Add("!=", TokenType.EXCLEQ);
