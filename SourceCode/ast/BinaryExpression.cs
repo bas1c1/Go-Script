@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +10,19 @@ namespace OwnLang.ast.lib
     {
         private Expression expr1, expr2;
         private char operation;
+        private string operation1 = string.Empty;
 
         public BinaryExpression(char operation, Expression expr1, Expression expr2)
         {
             this.operation = operation;
             this.expr1 = expr1;
             this.expr2 = expr2;
+        }
+
+        public BinaryExpression set_op1(string op1)
+        {
+            operation1 = op1;
+            return this;
         }
 
         public Value eval()
@@ -51,6 +58,18 @@ namespace OwnLang.ast.lib
 
             double number1 = value1.asDouble();
             double number2 = value2.asDouble();
+
+            if (operation1 != string.Empty)
+            {
+                switch (operation1)
+                {
+                    case "**":
+                        {
+                            return new NumberValue(Math.Pow(number1, number2));
+                        }
+                }
+            }
+
             switch (operation)
             {
                 case '+':
@@ -68,6 +87,10 @@ namespace OwnLang.ast.lib
                 case '/':
                     {
                         return new NumberValue(number1 / number2);
+                    }
+                case '%':
+                    {
+                        return new NumberValue(number1 % number2);
                     }
                 default:
                     {
