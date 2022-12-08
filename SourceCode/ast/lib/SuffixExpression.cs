@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +33,12 @@ namespace OwnLang.ast.lib
                 case '-':
                     {
                         number1 -= 1;
+                        Variables.set(expr1.ToString(), new NumberValue(number1));
+                        return new NumberValue(number1);
+                    }
+                case '~':
+                    {
+                        number1 = ~(int)number1;
                         Variables.set(expr1.ToString(), new NumberValue(number1));
                         return new NumberValue(number1);
                     }
