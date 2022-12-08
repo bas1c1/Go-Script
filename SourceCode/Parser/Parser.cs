@@ -379,6 +379,16 @@ namespace OwnLang.ast
                     result = new ConditionalExpression(ConditionalExpression.Operator.OR, result, logicalAnd());
                     continue;
                 }
+                if (match(TokenType.BAR))
+                {
+                    result = new ConditionalExpression(ConditionalExpression.Operator.LOGOR, result, logicalAnd());
+                    continue;
+                }
+                if (match(TokenType.XOR))
+                {
+                    result = new ConditionalExpression(ConditionalExpression.Operator.XOR, result, logicalAnd());
+                    continue;
+                }
                 break;
             }
 
@@ -392,6 +402,11 @@ namespace OwnLang.ast
             while (true)
             {
                 if (match(TokenType.AMPAMP))
+                {
+                    result = new ConditionalExpression(ConditionalExpression.Operator.AND, result, equality());
+                    continue;
+                }
+                if (match(TokenType.AMP))
                 {
                     result = new ConditionalExpression(ConditionalExpression.Operator.AND, result, equality());
                     continue;
@@ -486,6 +501,12 @@ namespace OwnLang.ast
                     continue;
                 }
 
+                if (match(TokenType.LOGNOT))
+                {
+                    result = new SuffixExpression('~', result);
+                    continue;
+                }
+
                 break;
             }
             
@@ -568,6 +589,17 @@ namespace OwnLang.ast
                 {
                     result = new BinaryExpression('/', result, unary());
                     continue;
+                }
+
+                if (match(TokenType.STARSTAR))
+                {
+                    result = new BinaryExpression('*', result, unary()).set_op1("**");
+                    continue;
+                }
+
+                if (match(TokenType.PERCENT))
+                {
+                    result = new BinaryExpression('%', result, unary());
                 }
                 break;
             }
