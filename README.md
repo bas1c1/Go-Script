@@ -23,7 +23,7 @@ Onion is a dynamically typed, general purpose programming language for creating 
 
 In the latest update was added "~", "^", "%", "&", "|", "**" operators
 
-`~6000` lines of code
+`>6000` lines of code
 
 <div align="center">
     <h1 align="center"> Documentation </h1>
