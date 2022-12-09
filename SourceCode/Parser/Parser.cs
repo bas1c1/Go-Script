@@ -210,7 +210,6 @@ namespace OwnLang.ast
                 DdotEqAssignmentStatement ddotEq = new DdotEqAssignmentStatement(enums, new StringValue(variable), expression().eval());
                 return ddotEq;
             }
-
             if (current.getType() == TokenType.WORD && get(1).getType() == TokenType.PLUSEQ)
             {
                 string variable = consume(TokenType.WORD).getText();
@@ -250,6 +249,11 @@ namespace OwnLang.ast
                 string variable = consume(TokenType.WORD).getText();
                 consume(TokenType.STAREQ);
                 return new NewAssignmentStatement(variable, expression(), "*");
+            }
+
+            if (lookMatch(0, TokenType.STARCON))
+            {
+                return starcon();
             }
 
             if (current.getType() == TokenType.WORD && get(1).getType() == TokenType.SLASHEQ)
@@ -658,6 +662,10 @@ namespace OwnLang.ast
             {
                 return element();
             }
+            if (lookMatch(0, TokenType.STARCON))
+            {
+                return starcon();
+            }
             if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LBRACE))
             {
                 return element();
@@ -665,6 +673,10 @@ namespace OwnLang.ast
             if (lookMatch(0, TokenType.DOG))
             {
                 return dog();
+            }
+            if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.EQCON))
+            {
+                return eqcon();
             }
             if (match(TokenType.WORD))
             {
@@ -681,6 +693,22 @@ namespace OwnLang.ast
                 return result;
             }
             throw new Exception("unknown expression");
+        }
+        
+        private Starcon starcon()
+        {
+            consume(TokenType.STARCON);
+            int iter = ((NumberValue)expression().eval()).asNumber();
+            Expression expr = expression();
+            return new Starcon(iter, expr);
+        }
+
+        private EqconExpression eqcon()
+        {
+            string var = consume(TokenType.WORD).getText();
+            consume(TokenType.EQCON);
+            Expression value = expression();
+            return new EqconExpression(var, value);
         }
 
         private DogExpression dog()
