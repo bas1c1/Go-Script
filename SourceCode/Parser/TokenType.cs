@@ -68,6 +68,8 @@ namespace OwnLang
         EXCL,
         EXCLEQ,
         EQ,
+        EQCON,
+        STARCON,
         EQEQ,
         LT,
         LTEQ,
