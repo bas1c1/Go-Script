@@ -207,7 +207,7 @@ namespace OwnLang.ast
                 string enums = consume(TokenType.WORD).getText();
                 string variable = consume(TokenType.WORD).getText();
                 consume(TokenType.DDOTEQ);
-                DdotEqAssignmentStatement ddotEq = new DdotEqAssignmentStatement(enums, new StringValue(variable), expression().eval());
+                DdotEqAssignmentStatement ddotEq = new DdotEqAssignmentStatement(enums, new StringValue(variable), expression());
                 return ddotEq;
             }
             if (current.getType() == TokenType.WORD && get(1).getType() == TokenType.PLUSEQ)
