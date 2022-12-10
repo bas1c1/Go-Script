@@ -11,9 +11,9 @@ namespace OwnLang.ast.lib
         private string valuet;
         private EnumValue value;
         private StringValue var;
-        private Value value1;
+        private Expression value1;
 
-        public DdotEqAssignmentStatement(string value, StringValue var, Value value1)
+        public DdotEqAssignmentStatement(string value, StringValue var, Expression value1)
         {
             valuet = value;
             this.var = var;
@@ -23,7 +23,7 @@ namespace OwnLang.ast.lib
         public void execute()
         {
             value = new EnumValue(((EnumValue)Variables.get(valuet)).getAll());
-            value.set(var.asString(), value1);
+            value.set(var.asString(), value1.eval());
         }
 
         override public string ToString()
