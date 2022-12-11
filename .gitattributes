@@ -1,1 +1,2 @@
-*.oni linguist-detectable=true 
+* linguist-vendored
+*.oni linguist-vendored=false
