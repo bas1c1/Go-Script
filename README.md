@@ -7,6 +7,8 @@
 <h1>This is programming language named "GoScript"</h1>
 
 GoScript is a dynamically typed, general purpose programming language for creating universal applications!
+(Old name of language: Onion)
+
 </div>
 
 <h1 align="center"> Features </h1>
