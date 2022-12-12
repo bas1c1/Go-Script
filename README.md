@@ -20,7 +20,6 @@ GoScript is a dynamically typed, general purpose programming language for creati
  - Friendly and easy-to-read syntax
  - Lightweight interpreter
  - Standart libraries
- - <a href="https://github.com/bas1c1/gs2exe">Simple to .exe converter</a>
 
 <h1 align="center"> In the last update </h1>
 
