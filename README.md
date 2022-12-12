@@ -4,7 +4,7 @@
     <img src="gs.png" width="150" alt="GoScript">
 </p>
 
-<h1>TGoScript Programming Language</h1>
+<h1>GoScript Programming Language</h1>
 
 GoScript is a dynamically typed, general purpose programming language for creating universal applications!
 
