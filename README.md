@@ -34,7 +34,7 @@ In the latest update was added "=>" and "*>" operators
 </div>
 
 <h1 align="center"> Contribution </h1>
-Onion is open-source project. You can throw pull requests and I'll look through them all!
+GoScript is open-source project. You can throw pull requests and I'll look through them all!
 
 <div align="center">
     <h1> DevKit </h1>
