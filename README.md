@@ -32,7 +32,7 @@ In the latest update was added "typedef" operator
 
 <div align="center">
     <h1 align="center"> Contribution </h1>
-    GoScript is open-source project. You can throw pull requests and I'll look through them all!
+GoScript is open-source project. You can throw pull requests and I'll look through them all!
 </div>
 
 <div align="center">
