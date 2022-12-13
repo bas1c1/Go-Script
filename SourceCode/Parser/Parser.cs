@@ -202,6 +202,46 @@ namespace OwnLang.ast
                 return new AssignmentStatement(variable, expression());
             }
 
+            if (current.getType() == TokenType.TYPEDEF) 
+            {
+                consume(TokenType.TYPEDEF);
+                string type = consume(TokenType.WORD).getText();
+                string variable = consume(TokenType.WORD).getText();
+                consume(TokenType.EQ);
+                AssignmentStatement assignmentStatement = new AssignmentStatement(variable, expression(), true);
+                switch (type) {
+                    case "int": {
+                        assignmentStatement.value = new NumberValue(0);
+                        break;
+                    }
+                    case "string": {
+                        assignmentStatement.value = new NumberValue(0);
+                        break;
+                    }
+                    case "dict": {
+                        assignmentStatement.value = new NumberValue(0);
+                        break;
+                    }
+                    case "stack": {
+                        assignmentStatement.value = new NumberValue(0);
+                        break;
+                    }
+                    case "bool": {
+                        assignmentStatement.value = new NumberValue(0);
+                        break;
+                    }
+                    case "obj": {
+                        assignmentStatement.value = new NumberValue(0);
+                        break;
+                    }
+                    case "arr": {
+                        assignmentStatement.value = new NumberValue(0);
+                        break;
+                    }
+                }
+                return assignmentStatement;
+            }
+
             if (current.getType() == TokenType.WORD && get(1).getType() == TokenType.WORD && get(2).getType() == TokenType.DDOTEQ)
             {
                 string enums = consume(TokenType.WORD).getText();
