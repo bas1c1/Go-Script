@@ -1,4 +1,4 @@
-﻿using OwnLang.ast.lib;
+using OwnLang.ast.lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +11,23 @@ namespace OwnLang.ast
     {
         private string variable;
         private Expression expression;
+        private bool isTypedef;
+        public Value value;
 
-        public AssignmentStatement(string variable, Expression expression)
+        public AssignmentStatement(string variable, Expression expression, bool isTypedef=false)
         {
             this.variable = variable;
             this.expression = expression;
+            this.isTypedef = isTypedef;
         }
 
         public void execute()
         {
-            // expression.eval()
+            if (isTypedef) {
+                Value result = (value.GetType())expression.eval();
+                Variables.set(variable, result);
+                return;
+            }
             Value result = expression.eval();
             Variables.set(variable, result);
         }
