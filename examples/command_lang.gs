@@ -3,7 +3,6 @@ use "files"
 use "winapi"
 
 variables = new_dictionary()
-words = new_arr()
 
 main = ldef () {
 	file = read(input("Enter file name: "))
