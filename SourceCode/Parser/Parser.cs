@@ -202,6 +202,59 @@ namespace OwnLang.ast
                 return new AssignmentStatement(variable, expression());
             }
 
+            if (current.getType() == TokenType.TYPEDEF)
+            {
+                consume(TokenType.TYPEDEF);
+                string type = consume(TokenType.WORD).getText();
+                string variable = consume(TokenType.WORD).getText();
+                consume(TokenType.EQ);
+                AssignmentStatement assignmentStatement = new AssignmentStatement(variable, expression(), true);
+                switch (type)
+                {
+                    case "int":
+                        {
+                            assignmentStatement.value = new NumberValue(0);
+                            break;
+                        }
+                    case "enum":
+                        {
+                            assignmentStatement.value = new EnumValue(new Dictionary<string, Value>());
+                            break;
+                        }
+                    case "string":
+                        {
+                            assignmentStatement.value = new StringValue(null);
+                            break;
+                        }
+                    case "dict":
+                        {
+                            assignmentStatement.value = new DictionaryValue(0);
+                            break;
+                        }
+                    case "stack":
+                        {
+                            assignmentStatement.value = new StackValue(0);
+                            break;
+                        }
+                    case "bool":
+                        {
+                            assignmentStatement.value = new BoolValue(true);
+                            break;
+                        }
+                    case "obj":
+                        {
+                            assignmentStatement.value = new ObjectValue(null);
+                            break;
+                        }
+                    case "arr":
+                        {
+                            assignmentStatement.value = new ArrayValue(0);
+                            break;
+                        }
+                }
+                return assignmentStatement;
+            }
+
             if (current.getType() == TokenType.WORD && get(1).getType() == TokenType.WORD && get(2).getType() == TokenType.DDOTEQ)
             {
                 string enums = consume(TokenType.WORD).getText();

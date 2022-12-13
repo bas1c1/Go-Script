@@ -187,6 +187,11 @@ namespace OwnLang
             string word = buffer.ToString();
             switch (word)
             {
+                case "typedef": 
+                    {
+                        addToken(TokenType.TYPEDEF);
+                        break;
+                    }
                 case "inst":
                     {
                         addToken(TokenType.INST_ENUM);
