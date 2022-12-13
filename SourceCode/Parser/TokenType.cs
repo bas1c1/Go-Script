@@ -45,6 +45,7 @@ namespace OwnLang
         STATEMENT,
         SWITCH,
         CASE,
+        TYPEDEF,
 
         STAREQ,
         SLASHEQ,
