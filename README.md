@@ -21,7 +21,15 @@ GoScript is a dynamically typed, general purpose programming language for creati
 
 <h1 align="center"> In the last update </h1>
 
-In the latest update was added "typedef" operator
+In the latest update was:
+
+- updated "files" library
+- added new data type "byte"
+- added command line arguments
+- added "const" operator
+- added "using" statement
+- added "if-then-else" expression
+- added new "socket" library
 
 `~6000` lines of code
 
