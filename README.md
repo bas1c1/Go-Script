@@ -6,7 +6,7 @@
 
 <h1>Go Script Programming Language</h1>
 
-Go Script is a dynamically typed, general purpose programming language for creating universal applications!
+<a href="https://github.com/GoScriptDev/Go-Script">Go Script</a> is a dynamically typed, general purpose programming language for creating universal applications!
 
 </div>
 
