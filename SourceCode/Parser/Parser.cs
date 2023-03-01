@@ -1,4 +1,4 @@
-﻿using OwnLang.ast.lib;
+using OwnLang.ast.lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -188,7 +188,8 @@ namespace OwnLang.ast
                 match(TokenType.COMMA);
                 enums.Add(en, new StringValue(en));
             }
-            Variables.set(name, new EnumValue(enums));
+            //Variables.set(name, new EnumValue(enums));
+            //return new NanStatement();
             return new AssignmentStatement(name, new ValueExpression(new EnumValue(enums)));
         }
 
@@ -763,7 +764,7 @@ namespace OwnLang.ast
             {
                 return ldef();
             }
-            if(lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.DDOT))
+            if(lookMatch(0, TokenType.WORD) &&  lookMatch(1, TokenType.DDOT)) 
             {
                 return ddot();
             }
@@ -893,10 +894,15 @@ namespace OwnLang.ast
 
         private DdotExpression ddot()
         {
-            string name = consume(TokenType.WORD).getText();
+            //new ValueExpression();
+
+            string value = consume(TokenType.WORD).getText();
             consume(TokenType.DDOT);
-            StringValue value = new StringValue(consume(TokenType.WORD).getText());
-            DdotExpression ddot = new DdotExpression(name, value);
+            //string name = consume(TokenType.WORD).getText();
+            //StringValue name = new StringValue(consume(TokenType.WORD).getText());string value = consume(TokenType.WORD).getText();
+            string name = consume(TokenType.WORD).getText();
+
+            DdotExpression ddot = new DdotExpression(value, name);
             return ddot;
         }
 
@@ -931,6 +937,7 @@ namespace OwnLang.ast
                 }
                 return efunction;
             }
+            
             consume(TokenType.LPAREN);
             FunctionalExpression function = new FunctionalExpression(name);
             while (!match(TokenType.RPAREN))
