@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Gtk;
 using System.Collections.Generic;
 using System.IO;
@@ -41,6 +41,7 @@ namespace OwnLang.ast.lib
             functions.Add("get_arg", new ForGetConsoleArg());
             functions.Add("exec_st", new AstStatementExec());
             functions.Add("byte", new ToByteArray());
+            functions.Add("to_obj", new ForToObject());
         }
 
         public void getModule(string name)
@@ -411,6 +412,7 @@ namespace OwnLang.ast.lib
                             functions.Add("new_dictionary", new ForDictionary());
                             functions.Add("add", new ForDictionaryAppend());
                             functions.Add("get_arr", new ForArrayGet());
+                            functions.Add("get_barr", new ForGetByteArray());
                             functions.Add("to_bool", new ForToBool());
                             functions.Add("exit", new ForExit());
                             functions.Add("sleep", new ForSleep());
@@ -424,6 +426,7 @@ namespace OwnLang.ast.lib
                         }
                         catch
                         {
+                            functions.Remove("get_barr");
                             functions.Remove("print");
                             functions.Remove("input");
                             functions.Remove("to_int");
@@ -450,6 +453,7 @@ namespace OwnLang.ast.lib
                             functions.Remove("add");
                             functions.Remove("to_bool");
 
+                            functions.Add("get_barr", new ForGetByteArray());
                             functions.Add("to_bool", new ForToBool());
                             functions.Add("as_var", new ForAsVar());
                             functions.Add("get_var_by_name", new ForGetVarByName());
@@ -511,6 +515,22 @@ namespace OwnLang.ast.lib
                 functions.Remove(key);
                 functions.Add(key, function);
             }
+        }
+    }
+
+    public class ForToObject : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return new ObjectValue(args[0].asObject());
+        }
+    }
+
+    public class ForGetByteArray : Function
+    {
+        public Value execute(Value[] args)
+        {
+            return ((ByteValue)args[0]).asArray();
         }
     }
 
@@ -773,7 +793,7 @@ namespace OwnLang.ast.lib
     {
         public Value execute(Value[] args)
         {
-            return new ObjectValue(new DdotExpression(args[0].asString(), (StringValue)args[1]));
+            return new ObjectValue(new DdotExpression(args[0].asString(), args[1].asString()));
         }
     }
 
