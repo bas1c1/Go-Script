@@ -21,6 +21,11 @@ namespace OwnLang.ast.lib
         {
             Value var = Variables.get(variable);
             //if (var is ArrayValue)
+            if (var is DictionaryValue)
+            {
+                DictionaryValue array = (DictionaryValue)var;
+                return array.get_by_index(index.eval().asString());
+            }
             try
             {
                 ArrayValue array = (ArrayValue)var;
@@ -31,10 +36,7 @@ namespace OwnLang.ast.lib
                 StackValue array = (StackValue)var;
                 return array.get_by_index((int)index.eval().asNumber());
             }
-            finally
-            {
-                throw new Exception("Array expected");
-            }
+            throw new Exception("Array expected");
         }
 
         public override string ToString()

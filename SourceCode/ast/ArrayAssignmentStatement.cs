@@ -28,21 +28,21 @@ namespace OwnLang.ast.lib
                 DictionaryValue array = (DictionaryValue)var;
                 string dindex = index.eval().asString();
                 array.append(dindex, expression.eval());
+                return;
             }
             try
             {
                 ArrayValue array = (ArrayValue)var;
                 array.set((int)index.eval().asNumber(), expression.eval());
+                return;
             }
             catch
             {
                 StackValue array = (StackValue)var;
                 array.set((int)index.eval().asNumber(), expression.eval());
+                return;
             }
-            finally
-            {
-                throw new Exception("Array expected");
-            }
+            throw new Exception("Array expected");
         }
 
         public override string ToString()
