@@ -50,6 +50,7 @@ Go Script is open-source project. You can throw pull requests and I'll look thro
 
 <h1 align="center"> Examples </h1>
 
+<a href="https://github.com/bas1c1/GS-BlockChain">(Very simple blockchain written on GoScript)</a>
 <a href="https://github.com/bas1c1/GoScript/tree/main/examples">(More examples)</a>
 
 Simple "Hello world":
