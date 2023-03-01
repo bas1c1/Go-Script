@@ -42,6 +42,16 @@ namespace OwnLang.ast.lib
             return value;
         }
 
+        public ArrayValue asArray()
+        {
+            ArrayValue values = new ArrayValue(value.Length);
+            foreach (byte byt in value)
+            {
+                values.append(new ObjectValue(byt));
+            }
+            return values;
+        }
+
         public object asObject()
         {
             return value;
