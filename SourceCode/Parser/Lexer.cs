@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OwnLang
 {
-    class Lexer
+    public class Lexer
     {
         private static string OPERATOR_CHARS = "+-*/()[]{}=<>!&|;.:@";
         private string input;
@@ -78,7 +78,7 @@ namespace OwnLang
             {
                 char current = peek(0);
                 if (Char.IsDigit(current)) tokenizeNumber();
-                else if (Char.IsLetter(current) || current=='_') tokenizeWord();
+                else if (Char.IsLetter(current) || current=='_' || current=='#') tokenizeWord();
                 else if (OPERATOR_CHARS.IndexOf(current) != -1)
                 {
                     tokenizeOperator();
@@ -94,6 +94,24 @@ namespace OwnLang
             }
             return tokens;
         }
+
+        /*public Token tokenizeSmth(string str)
+        {
+            char current = peek(0);
+            if (Char.IsDigit(current)) tokenizeNumber();
+            else if (Char.IsLetter(current) || current == '_' || current == '#') tokenizeWord();
+            else if (OPERATOR_CHARS.IndexOf(current) != -1)
+            {
+                tokenizeOperator();
+            }
+            else if (current == '"')
+            {
+                tokenizeText();
+            }
+            Token token = tokens[tokens.Count - 1];
+            tokens.RemoveAt(tokens.Count - 1);
+            return token;
+        }*/
 
         private void tokenizeText()
         {
@@ -177,7 +195,7 @@ namespace OwnLang
             char current = peek(0);
             while (true)
             {
-                if (!Char.IsLetterOrDigit(current) && (current != '_') && (current != '$'))
+                if (!Char.IsLetterOrDigit(current) && (current != '_') && (current != '$') && (current != '#'))
                 {
                     break;
                 }
@@ -187,6 +205,31 @@ namespace OwnLang
             string word = buffer.ToString();
             switch (word)
             {
+                case "#if":
+                    {
+                        addToken(TokenType.S_IF);
+                        break;
+                    }
+                case "#ifdef":
+                    {
+                        addToken(TokenType.S_IFDEF);
+                        break;
+                    }
+                case "#ifndef":
+                    {
+                        addToken(TokenType.S_IFNDEF);
+                        break;
+                    }
+                case "#endif":
+                    {
+                        addToken(TokenType.S_ENDIF);
+                        break;
+                    }
+                case "#define":
+                    {
+                        addToken(TokenType.S_DEFINE);
+                        break;
+                    }
                 case "then":
                     {
                         addToken(TokenType.THEN);

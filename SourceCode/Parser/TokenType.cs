@@ -20,6 +20,12 @@ namespace OwnLang
         OBJECT,
         BYTE,
         
+        S_IF,
+        S_ELSE,
+        S_IFDEF,
+        S_IFNDEF,
+        S_ENDIF,
+        S_DEFINE,
         THEN,
         USING,
         CONSTANT,

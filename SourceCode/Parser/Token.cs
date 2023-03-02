@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OwnLang
 {
-    class Token
+    public class Token
     {
         private TokenType type;
 

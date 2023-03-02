@@ -1,4 +1,4 @@
-using OwnLang.ast.lib;
+﻿using OwnLang.ast.lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace OwnLang.ast
 {
-    class Parser
+    public class Parser
     {
         private List<Token> tokens;
-        private int pos;
+        private int pos = 0;
         private int size;
         private static Token EOF = new Token(TokenType.EOF, "");
 
@@ -23,9 +23,14 @@ namespace OwnLang.ast
         public Statement parse()
         {
             BlockStatement result = new BlockStatement();
+            
             while (!match(TokenType.EOF))
             {
-                result.add(statement());
+                try
+                {
+                    result.add(statement());
+                }
+                catch(EndIfException) {}
             }
             return result;
         }
@@ -128,6 +133,93 @@ namespace OwnLang.ast
             if (get(0).getType() == TokenType.RUN_CLASS && get(1).getType() == TokenType.WORD && get(2).getType() == TokenType.LPAREN)
             {
                 return new ClassStatement(classes());
+            }
+            if (get(0).getType() == TokenType.S_DEFINE)
+            {
+                consume(TokenType.S_DEFINE);
+                string name = consume(TokenType.WORD).getText();
+                Expression expr = expression();
+                Marks.marks[name] = expr;
+                return new NanStatement();
+            }
+            if (get(0).getType() == TokenType.S_IF)
+            {
+                consume(TokenType.S_IF);
+                int expr = expression().eval().asNumber();
+                if (expr != 1) {
+                    for(; ; ) {
+                        try {
+                            if (get(0).getType() == TokenType.S_ENDIF)
+                            {
+                                consume(TokenType.S_ENDIF);
+                                throw new EndIfException();
+                            }
+                            pos++;
+                        }
+                        catch (EndIfException) {
+                            break;
+                        }
+                        finally {
+
+                        }
+                    }
+                }
+                return new NanStatement();
+            }
+            if (get(0).getType() == TokenType.S_IFDEF)
+            {
+                consume(TokenType.S_IFDEF);
+                string expr = consume(TokenType.WORD).getText();
+
+                if (!Marks.marks.ContainsKey(expr)) {
+                    for (; ; ) {
+                        try {
+                            if (get(0).getType() == TokenType.S_ENDIF)
+                            {
+                                consume(TokenType.S_ENDIF);
+                                throw new EndIfException();
+                            }
+                            pos++;
+                        }
+                        catch (EndIfException) {
+                            break;
+                        }
+                        finally {
+
+                        }
+                    }
+                }
+                return new NanStatement();
+            }
+            if (get(0).getType() == TokenType.S_IFNDEF)
+            {
+                consume(TokenType.S_IFNDEF);
+                string expr = consume(TokenType.WORD).getText();
+
+                if (Marks.marks.ContainsKey(expr)) {
+                    for (; ; ) {
+                        try {
+                            if (get(0).getType() == TokenType.S_ENDIF)
+                            {
+                                consume(TokenType.S_ENDIF);
+                                throw new EndIfException();
+                            }
+                            pos++;
+                        }
+                        catch (EndIfException){
+                            break;
+                        }
+                        finally {
+                            
+                        }
+                    }
+                }
+                return new NanStatement();
+            }
+            if (get(0).getType() == TokenType.S_ENDIF)
+            {
+                consume(TokenType.S_ENDIF);
+                throw new EndIfException();
             }
             return assignmentStatement();
         }
@@ -415,7 +507,6 @@ namespace OwnLang.ast
                 //Variables.set(variable, new NumberValue(0));
                 return new AssignmentStatement(variable, new ValueExpression(0));
             }
-
             throw new Exception("Unknow statement");
         }
 
@@ -804,6 +895,11 @@ namespace OwnLang.ast
             {
                 return ifThenElse();
             }
+            if (match(TokenType.WORD) && Marks.marks.ContainsKey(current.getText()))
+            {
+                if (Marks.marks[current.getText()] != null)
+                    return Marks.marks[current.getText()];
+            }
             if (match(TokenType.WORD))
             {
                 return new ConstantExpression(current.getText());
@@ -1002,6 +1098,8 @@ namespace OwnLang.ast
             //pos++;
             return true;
         }
+
+        public void gotoPos(int npos) => pos = npos;
 
         private Token get(int relativePosition)
         {
