@@ -31,7 +31,7 @@ In the latest update was:
 - added "if-then-else" expression
 - added new "socket" library
 
-`~6000` lines of code
+`~7000` lines of code
 
 <div align="center">
     <h1 align="center"> Documentation </h1>
